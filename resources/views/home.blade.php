@@ -2,7 +2,11 @@
 
 @section('content')
     <section class="content">
-
+        <div class="wrapper">
+                <div class="preloader flex-column justify-content-center align-items-center">
+                    <img class="animation__wobble" src="{{asset('/vendor/adminlte/dist/img/Wallet2022Logo.png')}}" height="60px" width="80px"/>
+                </div>
+        </div>
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
@@ -23,8 +27,116 @@
                         {{ session('status') }}
                     </div>
                 @endif
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-danger with-border shadow-lg">
+                        <div class="card-header">
+                            <h3 class="card-title">Expenses</h3>
+                            <div class="card-tools">
+                                <button class="btn btn-tool" type="button" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            Chart 1
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card card-success with-border shadow-lg">
+                        <div class="card-header">
+                            <h3 class="card-title">Revenue</h3>
+                            <div class="card-tools">
+                                <button class="btn btn-tool" type="button" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
 
-                {{ __('You are logged in!') }}
+                        </div>
+                        <div class="card-body">
+                            Chart 2
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h3>100</h3>
+                                <p>Total shopping bills</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <a class="small-box-footer" href="#">Show all</a>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="small-box bg-indigo">
+                            <div class="inner">
+                                <h3>100</h3>
+                                <p>Total  bills</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-money-bill"></i>
+                            </div>
+                            <a class="small-box-footer" href="#">Show all</a>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="small-box bg-gradient-danger">
+                            <div class="inner">
+                                <h3>100</h3>
+                                <p>Sum of Expenses</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-arrow-alt-circle-down"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="small-box bg-gradient-success">
+                            <div class="inner">
+                                <h3>100</h3>
+                                <p>Sum of Revenue (per year)</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fas fa-arrow-alt-circle-up"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="small-box bg-gradient-success">
+                            <div class="inner">
+                                <h3 id="productsCount"></h3>
+                                <p>Shop items in database</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-shopping-basket"></i>
+                            </div>
+                            <a class="small-box-footer" href="{{route('products.index')}}">Show all</a>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="small-box bg-gradient-warning ">
+                            <div class="inner">
+                                <h3 id="categoriesCount"></h3>
+                                <p>Categories in database</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-list"></i>
+                            </div>
+                            <a class="small-box-footer" href="#">Show all</a>
+
+                        </div>
+                    </div>
+
+                </div>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
@@ -36,4 +148,27 @@
 
     </section>
 
+@endsection
+@section('js')
+    <script>
+        $(document).ready(function () {
+          $(".small-box").addClass('shadow-lg ');
+          $.ajax({
+              url: '/countProducts',
+              dataType: 'json',
+              success: function (data)
+              {
+                  $("#productsCount").html(data);
+              }
+          });
+          $.ajax({
+              url: '/countCategories',
+              dataType: 'json',
+              success: function (data)
+              {
+                  $("#categoriesCount").html(data);
+              }
+          })
+        })
+    </script>
 @endsection

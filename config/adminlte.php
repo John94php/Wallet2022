@@ -246,78 +246,80 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
+
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
-        ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
-            'submenu' => [
+            'text' => 'Shopping bills',
+            'icon' => 'fas fa-shopping-cart',
+            'submenu' =>[
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' =>'Add new shopping bill',
+                    'url' =>'shopping/add'
+
                 ],
                 [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
+                    'text' =>'Show all',
+                    'url' => 'shopping/index'
+                ]
             ],
         ],
-        ['header' => 'labels'],
         [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
+          'text' =>'Bill',
+           'icon' =>'fas fa-money-bill',
+            'submenu' => [
+                [
+                  'text' =>'Add new bill',
+                  'url' =>'bills/add'
+                ],
+                [
+                  'text' =>'Show all bills',
+                  'url' =>'bills'
+                ],
+            ]
+        ],
+            [
+              'text' =>'Categories',
+              'icon' =>'fas fa-list',
+              'submenu' => [
+                  [
+                      'text' =>'Add new category',
+                      'url' =>'categories/add'
+                  ],
+                  [
+                    'text' =>'Show all categories',
+                    'url' =>'categories'
+                  ],
+              ]
+            ],
+        [
+            'text' =>'Products',
+            'icon' =>'fas fa-list',
+            'submenu' =>
+            [
+                [
+                    'text' =>'Add new product',
+                    'url' =>'products/add'
+                ],
+                [
+                    'text' =>'Show all products',
+                    'url' =>'products'
+                ]
+            ]
         ],
         [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
-        ],
+            'text' =>'Repayment schedules',
+            'icon' =>'fas fa-clipboard-list',
+            'submenu' => [
+                [
+                    'text' =>'Add new schedule',
+                    'url' =>'schedule/add'
+                ],
+                [
+                    'text' =>'Show all schedules',
+                    'url' =>'schedule/index'
+                ]
+            ]
+        ]
+
     ],
 
     /*
@@ -356,16 +358,16 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js',
                 ],
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js',
                 ],
                 [
@@ -401,11 +403,11 @@ return [
             ],
         ],
         'Sweetalert2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
+                    'asset' => true,
                     'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
                 ],
             ],
@@ -422,6 +424,26 @@ return [
                     'type' => 'js',
                     'asset' => false,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
+                ],
+            ],
+        ],
+        'TempusDominusBs4' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/moment/moment.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css',
                 ],
             ],
         ],
