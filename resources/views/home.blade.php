@@ -208,7 +208,8 @@
               dataType: 'json',
               success: function (data)
               {
-                $("#shoppingAmount").html(data + "&nbsp;zł")
+
+                  $("#shoppingAmount").html(parseFloat(data) + "&nbsp;zł")
               }
           });
           $.ajax({
@@ -219,7 +220,7 @@
 
                 let bills = parseFloat(data.bills);
                 let shopping = parseFloat( data.shopping);
-                $("#expensesSum").html(bills + shopping +"&nbsp;zł")
+                $("#expensesSum").html(bills + shopping +"&nbsp;zł");
 
               }
           })

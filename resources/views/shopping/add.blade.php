@@ -89,13 +89,7 @@
 
     <script>
         $(document).ready(function () {
-            $(".amount").inputmask(
-                {
-                    'alias': 'currency',
-                    'prefix': '',
-                    'suffix': ' zł'
-                }
-            );
+
             $(".amount").change(function () {
                 let amount = parseFloat($(this).val());
                 let piece = $("tr.data" + 0 + "").find(".piece").val();
@@ -130,22 +124,10 @@
                         $("#shoppingSum").html(summary + "&nbsp;zł");
                     })
 
-                    $(".amount").inputmask(
-                        {
-                            'alias': 'currency',
-                            'prefix': '',
-                            'suffix': ' zł'
-                        }
-                    );
 
 
                 })
-                // index++
 
-            });
-            var formatter = new Intl.NumberFormat('pl-PL', {
-                style: 'currency',
-                currency: 'PLN'
             });
 
             $("#shoppingBilForm").on('submit', function (e) {
