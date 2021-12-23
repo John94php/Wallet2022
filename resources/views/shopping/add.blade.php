@@ -64,9 +64,16 @@
 
                     </div>
 
-                    <div class="card-footer">Sum: <span class="badge badge-dark float-right" id="shoppingSum"></span>
+                    <div class="card-footer">
+                        <div class="float-right">
+                            <label>Sum:</label>
+                            <span  id="shoppingSum" class="badge badge-dark"></span>
+                        </div>
                         <input type="hidden" name="total" class="form-control-plaintext"></div>
+
+
                     <button type="submit" class="btn btn-success">Submit</button>
+
                 </form>
 
             </div>
@@ -94,6 +101,7 @@
                 let piece = $("tr.data" + 0 + "").find(".piece").val();
                 let total = amount * piece;
                 $(".shoppingsum" + 0).html(total + " zł");
+                $("#shoppingSum").html(total + "zł");
                 // $(this).parent('td').closest('.shoppingsum').html(total);
             })
 
@@ -117,6 +125,9 @@
                         let piece = $("tr.data" + index + "").find(".piece").val();
                         let total = amount * piece;
                         $(".shoppingsum" + index).html(total + " zł");
+                        let sum = $("#shoppingSum").text();
+                        let summary = parseFloat(sum) + total
+                        $("#shoppingSum").html(summary + "&nbsp;zł");
                     })
 
                     $(".amount").inputmask(
@@ -125,22 +136,21 @@
                             'prefix': '',
                             'suffix': ' zł'
                         }
-                    )
+                    );
+
 
                 })
                 // index++
 
-            })
+            });
+            var formatter = new Intl.NumberFormat('pl-PL', {
+                style: 'currency',
+                currency: 'PLN'
+            });
+
             $("#shoppingBilForm").on('submit', function (e) {
                 e.preventDefault();
-                var formatter = new Intl.NumberFormat('pl-PL', {
-                    style: 'currency',
-                    currency: 'PLN'
-                });
-                // $("input[name='total']").val(sum);
-                // $("#shoppingSum").html(formatter.format(sum));
-//                $("input[name='total']").val(formatter.format($("input[name='total']").val()));
-                //    console.log($("input[name='total']").val());
+
                 // $.ajax({
                 //     url: '/saveShopping',
                 //     type: 'POST',
@@ -155,6 +165,8 @@
                 //         })
                 //     }
                 // })
+
+
             })
 
         })
