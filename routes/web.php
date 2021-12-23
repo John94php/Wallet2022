@@ -52,3 +52,4 @@ Route::post('saveShopping',[App\Http\Controllers\ShoppingController::class,'stor
 
 Route::get('/countProducts',[App\Http\Controllers\ProductController::class,'countProducts'])->name('countProducts');
 Route::get('/countCategories',[App\Http\Controllers\CategoryController::class,'countCategories'])->name('countCategories');
+Route::get('/countBills',[App\Http\Controllers\BillController::class,'countBills'])->name('countBills');

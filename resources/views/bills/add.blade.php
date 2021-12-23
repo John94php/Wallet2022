@@ -44,7 +44,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="status" class="col-sm-2 col-form-label">Category</label>
+                            <label for="status" class="col-sm-2 col-form-label">Status</label>
                             <div class="col-sm-10">
                                 <select name="status" id="billStatus" class="form-control"></select>
 
@@ -87,9 +87,6 @@
                     url: '/saveBill',
                     type: 'POST',
                     data: $(this).serializeArray(),
-                    beforeSend: function () {
-                        console.log($(this).serializeArray());
-                    },
                     success: function (data) {
                         Swal.fire({
                             type: data.icon,

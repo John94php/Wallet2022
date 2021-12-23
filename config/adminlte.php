@@ -318,6 +318,20 @@ return [
                     'url' =>'schedule/index'
                 ]
             ]
+        ],
+        [
+            'text' =>'Revenues',
+            'icon' =>'fas fa-arrow-alt-circle-up',
+            'submenu' => [
+                [
+                    'text' => 'Add new revenue',
+                    'url' =>'revenue/add',
+                ],
+                [
+                    'text' =>'Show all ',
+                    'url' =>'revenues'
+                ]
+            ]
         ]
 
     ],

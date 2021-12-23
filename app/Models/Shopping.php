@@ -12,8 +12,8 @@ class Shopping extends Model
     protected $fillable =
         [
             'name',
-            'items',
-            'total'
+            'total',
+            'month'
         ];
     protected $casts =
         [

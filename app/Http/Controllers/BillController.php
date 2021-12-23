@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bill;
 use App\Models\Status;
+use http\Env\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -36,6 +37,11 @@ class BillController extends Controller
     {
         $amount = Bill::select(DB::raw('SUM(amount) AS sum'))->pluck('sum');
         return response()->json($amount);
+    }
+    public function countBills() : JsonResponse
+    {
+        $count = Bill::all()->count();
+        return response()->json($count);
     }
 
 }

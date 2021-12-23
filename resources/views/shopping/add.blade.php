@@ -6,8 +6,7 @@
                  width="80px"/>
         </div>
     </div>
-    <a href="{{route('shopping.index')}}" class="btn btn-outline-dark m-1"><i class="fas fa-arrow-alt-circle-left"></i>
-        Go
+    <a href="{{route('bills.index')}}" class="btn btn-outline-dark m-1"><i class="fas fa-arrow-alt-circle-left"></i> Go
         back</a>
     <div class="card-body">
         <div class="card card-info">
@@ -15,65 +14,33 @@
                 <h3 class="card-title">Add new shopping bill</h3>
             </div>
             <div class="card-body">
-                <form id="shoppingBilForm" class="form-horizontal">
+                <form id="addShoppingBillForm" class="form-horizontal">
                     @csrf
+                    <div class="form-group row">
+                        <label for="date" class="col-sm-2 col-form-label"> date</label>
+                        <div class="col-sm-10">
+                            <input id="date" name="date" data-target="#date"
+                                   data-toggle="datetimepicker" class="form-control datetimepicker"
+                                   value="{{date('Y-m-d')}}">
+                        </div>
+                    </div>
+
                     <div class="form-group row">
                         <label for="name" class="col-sm-2 col-form-label">Name</label>
                         <div class="col-sm-10">
-                            <input name="name" class="form-control"/>
+                            <input type="text" name="name" class="form-control">
                         </div>
                     </div>
-                    <div class="form-group-row">
-                        <label class="col-sm-2 col-form-label"><strong>Products:</strong></label>
 
+                    <div class="form-group row">
+                        <label for="amount" class="col-sm-2 col-form-label">Amount</label>
                         <div class="col-sm-10">
-                            <div class="button-group float-right">
-                                <button class="btn btn-sm btn-success addProductBtn"><i class="fas fa-plus"></i>Add new
-                                    product
-                                </button>
-                                <button class="btn btn-sm btn-danger removeLastItem"><i class="fas fa-ban"></i>Remove
-                                    last item
-                                </button>
-                            </div>
-
+                            <input type="text" name="total" id="amount" class="form-control">
                         </div>
                     </div>
-                    <div class="form-group-row">
-                        <table class="table table-responsive-sm" id="shoppingTable">
-                            <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Pieces</th>
-                                <th>Price</th>
-                                <th>Sum</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr class="data0">
-                                <td><input type="text" name="items[0][name]" class="form-control" required/></td>
-                                <td><input type="number" name="items[0][piece]" class="form-control piece" required/>
-                                </td>
-                                <td>
-                                    <input type="text" name="items[0][price]" class="form-control amount"
-                                           required/>
-                                </td>
-                                <td><p class="form-control-plaintext shoppingsum0"></p></td>
-                            </tr>
-                            </tbody>
-                        </table>
-
-                    </div>
-
-                    <div class="card-footer">
-                        <div class="float-right">
-                            <label>Sum:</label>
-                            <span  id="shoppingSum" class="badge badge-dark"></span>
-                        </div>
-                        <input type="hidden" name="total" class="form-control-plaintext"></div>
-
+                    <input type="hidden" name="month"/>
 
                     <button type="submit" class="btn btn-success">Submit</button>
-
                 </form>
 
             </div>
@@ -84,60 +51,33 @@
 
 @endsection
 @section('js')
-    <script type='text/javascript'
-            src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+    <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
+            $("#date").datetimepicker({
+                format: 'YYYY-MM-DD'
+            });
+            $("#date").on('blur', function () {
+                const monthNames = ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec",
+                    "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"
+                ];
 
-            $(".amount").change(function () {
-                let amount = parseFloat($(this).val());
-                let piece = $("tr.data" + 0 + "").find(".piece").val();
-                let total = amount * piece;
-                $(".shoppingsum" + 0).html(total + " zł");
-                $("#shoppingSum").html(total + "zł");
-                // $(this).parent('td').closest('.shoppingsum').html(total);
+                let date = $(this).val();
+                let d = new Date(date);
+                $("input[name='month']").val(monthNames[d.getMonth()]);
+
             })
 
-            $(".addProductBtn").each(function (index) {
-
-                index = 1;
-                $(this).on('click', function (e) {
-
-
-                    e.preventDefault();
-
-                    $("table tbody").append('<tr class="data' + index + '" >' +
-                        '<td><input type="text" name="items[' + index + '][name]" class="form-control" /></td>' +
-                        '<td><input type="text" name="items[' + index + '][piece]" class="form-control piece" /></td>' +
-                        '<td><input type="text" name="items[' + index + '][price]" class="form-control amount"/>' +
-                        '<td><p class="form-control-plaintext shoppingsum' + index + '" ></p></td>' +
-                        '</td>' +
-                        '</tr>');
-                    $(".amount").change(function () {
-                        let amount = parseFloat($(this).val());
-                        let piece = $("tr.data" + index + "").find(".piece").val();
-                        let total = amount * piece;
-                        $(".shoppingsum" + index).html(total + " zł");
-                        let sum = $("#shoppingSum").text();
-                        let summary = parseFloat(sum) + total
-                        $("#shoppingSum").html(summary + "&nbsp;zł");
-                    })
-
-
-
-                })
-
-            });
-
-            $("#shoppingBilForm").on('submit', function (e) {
+            $("#addShoppingBillForm").on('submit',function (e) {
                 e.preventDefault();
-                $("input[name='total']").val(parseFloat($("#shoppingSum").text()));
+
                 $.ajax({
                     url: '/saveShopping',
                     type: 'POST',
                     data: $(this).serializeArray(),
-                    success: function (data) {
+                    success: function (data)
+                    {
                         Swal.fire({
                             type: data.icon,
                             title: data.title,
@@ -145,13 +85,11 @@
                             timer: 3000,
                             showConfirmButton: false
                         })
+
                     }
                 })
 
-
             })
-
         })
-
     </script>
 @endsection
