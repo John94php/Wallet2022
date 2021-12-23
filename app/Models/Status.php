@@ -13,4 +13,9 @@ class Status extends Model
         'name'
     ];
     public $timestamps = false;
+
+    public function bills()
+    {
+        $this->HasMany(Bill::class);
+    }
 }

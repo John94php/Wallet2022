@@ -19,4 +19,9 @@ class Bill extends Model
             'status'
         ];
 
+    public function status()
+    {
+        $this->belongsTo(Status::class);
+    }
+
 }

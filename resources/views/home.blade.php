@@ -90,8 +90,8 @@
                     <div class="col-md-3">
                         <div class="small-box bg-gradient-danger">
                             <div class="inner">
-                                <h3>100</h3>
-                                <p>Sum of Expenses</p>
+                                <h3 id="expensesSum"></h3>
+                                <p>Sum of Expenses[<i class="fas fa-dollar-sign"></i>]</p>
                             </div>
                             <div class="icon">
                                 <i class="fas fa-arrow-alt-circle-down"></i>
@@ -102,7 +102,7 @@
                         <div class="small-box bg-gradient-success">
                             <div class="inner">
                                 <h3>100</h3>
-                                <p>Sum of Revenue (per year)</p>
+                                <p>Sum of Revenue[<i class="fas fa-dollar-sign"></i>]</p>
                             </div>
                             <div class="icon">
                                 <i class="fas fas fa-arrow-alt-circle-up"></i>
@@ -135,6 +135,31 @@
 
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <div class="small-box bg-primary ">
+                            <div class="inner">
+                                <h3 id="shoppingAmount"></h3>
+                                <p>Total amount of shopping bills</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="small-box bg-gradient-warning ">
+                            <div class="inner">
+                                <h3 id="billsAmount"></h3>
+                                <p>Total amount of bills</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+
+
+                        </div>
+                    </div>
 
                 </div>
             </div>
@@ -152,7 +177,7 @@
 @section('js')
     <script>
         $(document).ready(function () {
-          $(".small-box").addClass('shadow-lg ');
+          $(".small-box").addClass('shadow-lg card-body');
           $.ajax({
               url: '/countProducts',
               dataType: 'json',
@@ -167,6 +192,35 @@
               success: function (data)
               {
                   $("#categoriesCount").html(data);
+              }
+          });
+          $.ajax({
+              url: '/getAllBillsAmount',
+              dataType: 'json',
+              success: function (data)
+              {
+
+                  $("#billsAmount").html(data + "&nbsp;zł");
+              }
+          });
+          $.ajax({
+              url: '/getAllShoppingAmount',
+              dataType: 'json',
+              success: function (data)
+              {
+                $("#shoppingAmount").html(data + "&nbsp;zł")
+              }
+          });
+          $.ajax({
+              url: '/countAllExpenses',
+              dataType: 'json',
+              success: function (data)
+              {
+
+                let bills = parseFloat(data.bills);
+                let shopping = parseFloat( data.shopping);
+                $("#expensesSum").html(bills + shopping +"&nbsp;zł")
+
               }
           })
         })

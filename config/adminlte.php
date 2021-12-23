@@ -258,7 +258,7 @@ return [
                 ],
                 [
                     'text' =>'Show all',
-                    'url' => 'shopping/index'
+                    'url' => 'shopping'
                 ]
             ],
         ],

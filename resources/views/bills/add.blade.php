@@ -8,10 +8,6 @@
     </div>
     <a href="{{route('bills.index')}}" class="btn btn-outline-dark m-1"><i class="fas fa-arrow-alt-circle-left"></i> Go
         back</a>
-    <div class="card card-info">
-        <div class="card-header">
-            <h3 class="card-title">Add new category</h3>
-        </div>
         <div class="card-body">
             <div class="card card-info">
                 <div class="card-header">
@@ -44,10 +40,16 @@
                         <div class="form-group row">
                             <label for="amount" class="col-sm-2 col-form-label">Amount</label>
                             <div class="col-sm-10">
-                                <input type="text" name="amount" placeholder="0.00 zł" class="form-control">
+                                <input type="text" name="amount" id="amount" class="form-control">
                             </div>
                         </div>
-                        <input type="hidden" name="status" value="1"/>
+                        <div class="form-group row">
+                            <label for="status" class="col-sm-2 col-form-label">Category</label>
+                            <div class="col-sm-10">
+                                <select name="status" id="billStatus" class="form-control"></select>
+
+                            </div>
+                        </div>
                         <input type="hidden" name="month"/>
                         <button type="submit" class="btn btn-success">Submit</button>
                     </form>
@@ -57,12 +59,14 @@
 
 
         </div>
-    </div>
 
 @endsection
 @section('js')
+    <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+
     <script>
-        $(document).ready(function () {
+
+    $(document).ready(function () {
             $("#payment_date").datetimepicker({
                 format: 'YYYY-MM-DD'
             });
@@ -106,6 +110,19 @@
                 let i;
                 for (i = 0; i < data.length; i++) {
                     $("#billCategory").append('<option value="' + data[i].id + '">' + data[i].name + '</option>');
+
+                }
+            }
+        });
+        $.ajax({
+            url: '/getAllStatuses',
+            dataType: 'JSON',
+            success: function (data)
+            {
+                let i;
+                for(i = 0; i < data.length;i++)
+                {
+                    $("#billStatus").append('<option value="' + data[i].id + '">' + data[i].name + '</option>');
 
                 }
             }
