@@ -150,21 +150,21 @@
 
             $("#shoppingBilForm").on('submit', function (e) {
                 e.preventDefault();
-
-                // $.ajax({
-                //     url: '/saveShopping',
-                //     type: 'POST',
-                //     data: $(this).serializeArray(),
-                //     success: function (data) {
-                //         Swal.fire({
-                //             type: data.icon,
-                //             title: data.title,
-                //             html: data.message,
-                //             timer: 3000,
-                //             showConfirmButton: false
-                //         })
-                //     }
-                // })
+                $("input[name='total']").val(parseFloat($("#shoppingSum").text()));
+                $.ajax({
+                    url: '/saveShopping',
+                    type: 'POST',
+                    data: $(this).serializeArray(),
+                    success: function (data) {
+                        Swal.fire({
+                            type: data.icon,
+                            title: data.title,
+                            html: data.message,
+                            timer: 3000,
+                            showConfirmButton: false
+                        })
+                    }
+                })
 
 
             })
