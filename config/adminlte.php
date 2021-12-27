@@ -291,17 +291,17 @@ return [
               ]
             ],
         [
-            'text' =>'Products',
+            'text' =>'Shopping categories',
             'icon' =>'fas fa-list',
             'submenu' =>
             [
                 [
-                    'text' =>'Add new product',
+                    'text' =>'Add new ',
                     'url' =>'products/add'
                 ],
                 [
-                    'text' =>'Show all products',
-                    'url' =>'products'
+                    'text' =>'Show all ',
+                    'url' =>'shopcat'
                 ]
             ]
         ],

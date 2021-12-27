@@ -35,6 +35,11 @@ class ShoppingController extends Controller
         $shopping = Shopping::all();
         return response()->json($shopping);
     }
+    public function countShopping(): JsonResponse
+    {
+        $shopping = Shopping::all()->count();
+        return response()->json($shopping);
+    }
     public function getAllShoppingAmount(): JsonResponse
     {
         $amount = Shopping::select(DB::raw('SUM(total) AS sum'))->pluck('sum');

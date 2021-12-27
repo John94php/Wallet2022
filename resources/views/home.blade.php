@@ -64,7 +64,7 @@
                     <div class="col-md-3">
                         <div class="small-box bg-info">
                             <div class="inner">
-                                <h3>100</h3>
+                                <h3 id="countShopping"></h3>
                                 <p>Total shopping bills</p>
                             </div>
                             <div class="icon">
@@ -230,6 +230,14 @@
               success: function (data)
               {
                 $("#countBills").html(data);
+              }
+          });
+          $.ajax({
+              url : '/countShopping',
+              dataType: 'json',
+              success: function (data)
+              {
+                $("#countShopping").html(data);
               }
           })
 
