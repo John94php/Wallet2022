@@ -39,7 +39,15 @@
                         </div>
                     </div>
                     <input type="hidden" name="month"/>
+                    <div class="form-group row">
+                        <label for="shopcat_id"  class="col-sm-2 col-form-label">Category</label>
+                        <div class="col-sm-10">
+                            <select name="shopcat_id" id="shopcat" class="select2 form-control" style="width: 100%">
+                            </select>
 
+                        </div>
+
+                    </div>
                     <button type="submit" class="btn btn-success">Submit</button>
                 </form>
 
@@ -52,9 +60,26 @@
 @endsection
 @section('js')
     <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <script>
         $(document).ready(function() {
+            //$(".select2").select2();
+
+            $.ajax({
+                url: '/getAllShopCat',
+                dataType: 'json',
+                success: function (data)
+                {
+                    let i;
+                    for(i =0; i < data.length;i++)
+                    {
+                        let icon = '<i class="'+data[i].icon+'"></i>';
+                        $("#shopcat").append("<option> " +  icon +     data[i].name +  "</option>");
+                    }
+                }
+            });
             $("#date").datetimepicker({
                 format: 'YYYY-MM-DD'
             });

@@ -13,45 +13,11 @@
             <th>Lp.</th>
             <th>Name</th>
             <th>Total</th>
-            <th>Action</th>
+            <th>Category</th>
         </tr>
         </thead>
     </table>
-    <div class="modal fade" id="viewShoppingModal" tabindex="-1" role="dialog" aria-labelledby="BillNameLabel"
-         aria-hidden="true">
 
-        <div class="modal-dialog " role="document">
-            <div class="modal-content ">
-                <div class="modal-header">
-                    <h5 class="modal-title ShoppingNameLabel" ></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-responsive-sm table-striped" style="width: 100%">
-                        <tbody>
-                        <tr>
-                            <td><label>Name</label></td>
-                            <td class="ShoppingNameLabel"></td>
-                        </tr>
-                        <tr>
-                            <td><label>Products</label></td>
-                            <td  class="ShoppingProductsList"></td>
-                        </tr>
-                        <tr>
-                            <td><label>Total:</label></td>
-                            <td class="ShoppingTotal"></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
 @endsection
 @section('js')
@@ -73,19 +39,41 @@
                     }
                 },
                 {
-                    data: null, render: function () {
-                        return '<button type="button" class="btn btn-sm btn-outline-info" data-toggle="modal" data-target="#viewShoppingModal"><i class="fas fa-eye"></i> View</button>';
+                    data: 'category', render: function (data, type, row) {
+                        let icon = '';
+                        let name = '';
+                        if (data == '1') {
+                            icon = 'fas fa-hamburger';
+                            name = 'Food & drinks';
+                        } else if (data == '2') {
+                            name = 'Pharmacy'
+                            icon = 'fas fa-pills'
+                        } else if (data == '3') {
+                            icon = 'fas fa-bolt';
+                            name = 'Electronic equipment'
+                        } else if (data == '4') {
+                            icon = 'fas fa-gifts'
+                            name = 'Presents / Gifts'
+                        } else if (data == '5') {
+                            icon = 'fas fa-gamepad'
+                            name = 'Entertaiment'
+                        } else if (data == '6') {
+                            icon = 'fas fa-bus-alt'
+                            name = 'Public transport'
+                        }
+                        return '<i class="' + icon + ' img-fluid mb-2" ></i>&nbsp;<label class="badge bg-dark">' + name + "</label>";
+
                     }
                 }
-
-
             ],
+
             ajax: {
                 url: '/getAllShopping',
                 type: 'GET',
                 dataType: 'json',
                 success: function (shopping) {
                     shoppingTable.rows.add(shopping).draw();
+
                 }
             },
         });
@@ -96,9 +84,8 @@
             console.log(data);
             $(".ShoppingNameLabel").html(data.name);
             let items = data.items;
-            for(let i = 0; i< items.length;i++)
-            {
-                 let dom = "<pre>" + items[i].name + "&nbsp;" + items[i].price + " zł</pre>";
+            for (let i = 0; i < items.length; i++) {
+                let dom = "<pre>" + items[i].name + "&nbsp;" + items[i].price + " zł</pre>";
                 $(".ShoppingProductsList").append(dom);
             }
             let total = data.total;

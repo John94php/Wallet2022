@@ -19,7 +19,7 @@ class ShoppingController extends Controller
     {
         return view('shopping.add');
     }
-    public  function store(Request $request)
+    public  function store(Request $request): JsonResponse
     {
 
         $shopping = new Shopping();

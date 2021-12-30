@@ -19,4 +19,8 @@ class Shopping extends Model
         [
             'items' =>   'array'
         ];
+    public function shopping()
+    {
+        $this->hasMany(ShoppingCategory::class,'id');
+    }
 }

@@ -297,7 +297,7 @@ return [
             [
                 [
                     'text' =>'Add new ',
-                    'url' =>'products/add'
+                    'url' =>'shopcat/add'
                 ],
                 [
                     'text' =>'Show all ',

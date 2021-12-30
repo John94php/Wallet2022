@@ -37,18 +37,21 @@ Route::get('/getAllShopCat',[App\Http\Controllers\ShoppingCategoryController::cl
 Route::get('/getStatus/{id}',[App\Http\Controllers\StatusController::class,'getStatus'])->name('getStatus');
 Route::get('/getAllBillsAmount',[App\Http\Controllers\BillController::class,'getAllBillsAmount'])->name('getAllBillsAmount');
 Route::get('/getAllShoppingAmount',[App\Http\Controllers\ShoppingController::class,'getAllShoppingAmount'])->name('getAllShoppingAmount');
-
+Route::get('/getShopCat/{id}',[App\Http\Controllers\ShoppingCategoryController::class,'getShopCat'])->name('getShopCat');
 
 
 Route::get('/categories/add',[App\Http\Controllers\CategoryController::class,'add'])->name('categories.add');
 Route::get('/products/add',[App\Http\Controllers\ProductController::class,'add'])->name('products.add');
 Route::get('/bills/add',[App\Http\Controllers\BillController::class,'add'])->name('bills.add');
 Route::get('/shopping/add',[App\Http\Controllers\ShoppingController::class,'add'])->name('shopping.add');
+Route::get('/shopcat/add',[App\Http\Controllers\ShoppingCategoryController::class,'add'])->name('shopcat.add');
 
 Route::post('saveCategory',[App\Http\Controllers\CategoryController::class,'store'])->name('saveCategory');
 Route::post('saveProduct',[App\Http\Controllers\ProductController::class,'store'])->name('saveProduct');
 Route::post('saveBill',[App\Http\Controllers\BillController::class,'store'])->name('saveBill');
 Route::post('saveShopping',[App\Http\Controllers\ShoppingController::class,'store'])->name('saveShopping');
+Route::post('saveShopCat',[App\Http\Controllers\ShoppingCategoryController::class,'store'])->name('saveShopCat');
+
 
 Route::get('/countAllExpenses',[App\Http\Controllers\ExpenseController::class,'countAllExpenses'])->name('countAllExpenses');
 Route::get('/countProducts',[App\Http\Controllers\ProductController::class,'countProducts'])->name('countProducts');
